@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+<style>
+  
+    .form-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+</style>
+<div class="absolute inset-0 flex mt-16 items-center justify-center bg-center bg-cover" style="background-image: url('https://i.pinimg.com/originals/2c/71/f7/2c71f7fc1a57010f17beb9d1841060e1.jpg');
+">
+
+
+
+        <div class="form-container">
+            <div class="relative z-10 w-[25vw] bg-rose-50 px-20 py-10 rounded-[30px]">
+                <h1
+                    class="text-3xl tracking-tighter text-center mb-7 font-semibold text-zinc-700 capitalize leading-none">
+                    Create new Post</h1>
+
+
+                <form action="/createpost" method="post" enctype="multipart/form-data">
+                    <div id="hello" class=" text-center text-lg bg-white font-li tracking-tighest h-30 border-2 border-zinc-200 object-cover text-zinc-400 px-10 py-10 rounded-md"> Upload image</div>
+                    <input id="hello2" hidden type="file" name="postimage">
+                    <input class="block w-full px-3 py-2 border-2 rounded-md mt-2" type="text" name="title"
+                        placeholder="Title">
+                    <input class="block w-full px-3 py-2 border-2 rounded-md mt-2" name="description" type="text"
+                        placeholder="Description">
+                    <input class="block w-full px-3 py-2 border-2 rounded-md mt-2 bg-rose-500 hover:bg-rose-600 active:bg-rose-700 focus:outline-1 focus:ring focus:ring-white-300 ..." type="submit">
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('#hello').addEventListener('click', () => {
+            document.querySelector('#hello2').click();
+        });
+
+        document.querySelector("#hello").addEventListener('click', () => {
+    setTimeout(() => {
+        document.querySelector('#hello').innerText = "Uploaded";
+    }, 5000); // Adjust the delay time (in milliseconds) as needed
+});
+
+    </script>
+
+    <%- include('partials/footer') %>

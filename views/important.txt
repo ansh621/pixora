@@ -1,0 +1,27 @@
+
+Web dev-->
+css--flex,grid,bootstrap
+js--closures property,Dom, async programming
+react--hooks,redux,state management
+
+oopS-->
+class,objects,inheritance,polymorphism,
+***encapsulation,abstraction,interface,message passing
+if java base multithreading also
+
+DSA-->
+linked list
+stack
+queue 
+tree
+
+system design-->
+HLD vs LLD
+
+Backend-->
+mongo,sql
+api creation
+
+Cloud-->
+EC2 IAM VPC S3 Dockers&containers
+

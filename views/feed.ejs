@@ -1,0 +1,15 @@
+<%- include('./partials/header') %>
+<div class="container">
+    <!-- Loop through user posts -->
+   
+    <% pp.forEach(function(elem) { %>
+    <div class="box">
+        <a href="/show/<%= elem._id %>">
+        <img src="/images/uploads/<%= elem.image %>" class="card-img-top w-full h-64 object-cover" alt="...">
+    </div>
+    <% }); %>
+    </a>
+</div>
+ <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+         <script src="app.js"></script>
+<%- include('./partials/footer') %>

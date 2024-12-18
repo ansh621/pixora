@@ -1,0 +1,206 @@
+body {
+  
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  
+}
+
+a {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+p{
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+hgroup{
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+div{
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.error {
+  font-weight: 500;
+  color: red;
+  text-transform: capitalize;
+  margin: 7px 0px;
+}
+
+.container {
+  padding-top: 13vh;
+  width: 90%; /* Adjust width as needed */
+  margin: auto;
+  column-count: 6;
+  column-gap: 20px;
+  background-color:rgb(240 253 250);;
+}
+
+.container .box {
+  width: 100%;
+  margin-bottom: 20px; /* Increased margin for better spacing */
+  break-inside: avoid; /* Prevent boxes from breaking inside columns */
+  border-radius: 15px;
+}
+
+.container .box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure images fill their container while maintaining aspect ratio */
+  border-radius: 10px;
+}
+
+img:hover {
+  opacity: .95;
+  box-shadow: 0 0 10px #494949;
+}
+
+.caption {
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 2px;
+}
+
+@media (max-width: 1427px) {
+  .container {
+    column-count: 5;
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    column-count: 4;
+  }
+}
+
+@media (max-width: 1000px) {
+  .container {
+    column-count: 3;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
+  
+  .navLink {
+    position: absolute;
+    right: 0px;
+    height: 90vh;
+    top: 10vh;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in;
+    opacity: 0.9;
+  }
+  
+  .navLink li {
+    opacity: 1;
+  }
+  
+  .lines {
+    display: block;
+  }
+  
+  .nav-active {
+    transform: translateX(0%);
+  }
+  
+  @keyframes navLinkFade {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    
+    to {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+  
+  .toggle .l1 {
+    transform: rotate(-45deg) translate(-5px,6px);
+  }
+  
+  .toggle .l2 {
+    opacity: 0;
+  }
+  
+  .toggle .l3 {
+    transform: rotate(45deg) translate(-5px,-6px);
+  }
+}
+
+@media (max-width: 786px) {
+  .container {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    column-count: 1;
+  }
+}
+/*footer*/
+.page {
+  transition: opacity 0.3s ease-in-out;
+}
+.page-transition {
+  opacity: 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fbcfe8; /* Rose-500 color */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ed64a6;
+  border-radius: 6px; /* Rose-500 color */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d53f8c; /* Rose-700 color */
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #ed64a6 #fbcfe8; /* Rose-500 color for thumb, Rose-200 color for track */
+}
+
+.cursor {
+  position: absolute;
+  width: 20px; /* Adjust the size of the cursor */
+  height: 20px; /* Adjust the size of the cursor */
+  background-color: #ff3399; /* Adjust the color of the cursor */
+  border-radius: 50%; /* Make it circular */
+  pointer-events: none; /* Ensure it doesn't interfere with mouse events */
+  transform: translate(-50%, -50%); /* Center the cursor */
+  z-index: 9999; /* Ensure it's on top of other elements */
+}
+

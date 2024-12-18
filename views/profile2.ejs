@@ -1,0 +1,53 @@
+<%- include('./partials/header') %>
+
+<div class="profile w-full min-h-screen bg-zinc-50 text-white pt-5">
+    
+    <div class="profdetail flex flex-col items-center mt-20 ">
+        <div class="relative mr-10">
+            
+            <div class="w-32 h-32 rounded-full bg-zinc-400 overflow-hidden">
+                <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profileImage %>">
+            </div>
+        </div>
+
+        <h1 class="text-2xl mr-10 text-zinc-800 font-semibold mt-5">
+            <%= user.name %>
+        </h1>
+        <h3 class="text-md mr-10 text-zinc-700 opacity-60">
+            <!-- Modified anchor tag for username to include dynamic profile URL -->
+            <a href="/profile/<%= user._id %>" class="text-zinc-700 hover:underline">@<%= user.username %></a>
+        </h3>
+
+        
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Loop through user posts -->
+        <% user.posts.forEach(function(post) { %>
+        <div class="card bg-white hover:bg-zinc-50 rounded-lg shadow overflow-hidden">
+            <a href="/show/<%= post._id %>">
+                <img src="/images/uploads/<%= post.image %>" class="card-img-top w-full h-64 object-cover" alt="...">
+                <!-- Adjust height of the image (h-64) based on your preference -->
+                <div class="relative card-body p-4">
+                    <div class="flex justify-between">
+                        <p class="card-text text-lg text-black font-semibold mb-2">
+                            <%= post.title %>
+                        </p>
+
+                        <a href="/delete/<%=post._id %>" ">
+                           
+                        </a>
+                    </div>
+
+                    <p class="card-text text-sm text-gray-500">
+                        <%= post.description %>
+                    </p>
+                </div>
+                
+        </div>
+        <% }); %>
+    </div>
+</div>
+
+
+<%- include ('./partials/footer') %>

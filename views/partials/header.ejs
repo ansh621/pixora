@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+  <% const foot = false;
+   if(nav === true) { %>
+
+    <div class="fixed  w-full py-1 px-1 flex bg-rose-300 py-1 text-lg justify-evenly text-black">
+
+      
+      <a class="px-4 text-lg py-3 border-2 border-rose-50 hover:border-rose-600 rounded-full" href="/profile">Profile</a>
+      <a class="px-3 text-lg border-2 border-rose-50 py-3 hover:border-rose-600 rounded-full" href="/feed">Feed</a>
+      <a href="/feed"><img src="/images/logo for Pixora.png" class="mx-1 my-1 border-2 border-rose-600 w-12 h-12 rounded-full"></a>
+      
+      
+      <a class="px-3 text-lg border-2 border-rose-50 py-3 hover:border-rose-600 rounded-full" href="/add">Add post</a>
+      
+          <a class="px-5 py-3 text-lg border-2 border-rose-200  text-black hover:border-red-500 hover:text-red-500 rounded-full" href="/logout">Logout</a>
+      
+  </div>
+  
+  <% } %>
+
+<script>
+  currentPage.classList.add('page-transition');
+  
+
+  setTimeout(() => {
+      currentPage.classList.remove('page-transition');
+  }, 400); // Adjust the delay to match the transition duration
+  document.addEventListener('mousemove', (e) => {
+    const cursor = document.querySelector('.cursor');
+    cursor.style.left = e.pageX + 'px';
+    cursor.style.top = e.pageY + 'px';
+});
+
+  
+</script>
+  
