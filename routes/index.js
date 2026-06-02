@@ -157,6 +157,11 @@ router.get('/feed', isLoggedIn, async (req, res) => {
           post.image = 'placeholder.svg';
           return post;
         }
+        // If it's a Cloudinary URL or full URL, keep it as is
+        if (post.image.startsWith('http://') || post.image.startsWith('https://')) {
+          return post;
+        }
+        // Only check local disk for local file paths
         const imgPath = path.join(uploadsDir, post.image);
         if (!fs.existsSync(imgPath)) {
           post.image = 'placeholder.svg';
