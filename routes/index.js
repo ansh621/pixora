@@ -9,6 +9,14 @@ passport.use(new LocalStrategy(userModle.authenticate()));
 const flash = require("flash")
 const fs = require('fs');
 const path = require('path');
+const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -26,10 +34,35 @@ router.get('/register', (req, res) => {
 
 router.post('/fileupload', isLoggedIn, upload.single('image'), async (req, res) => {
 
-  const user = await userModle.findOne({ username: req.session.passport.user })
-  user.profileImage = req.file.filename
-  await user.save()
-  res.redirect('/profile');
+  try {
+    const user = await userModle.findOne({ username: req.session.passport.user });
+    
+    if (!req.file) {
+      throw new Error('No file uploaded');
+    }
+
+    // Upload file buffer to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'pixora/profiles',
+          resource_type: 'auto',
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      uploadStream.end(req.file.buffer);
+    });
+
+    user.profileImage = uploadResult.secure_url;
+    await user.save();
+    res.redirect('/profile');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error uploading profile image: ' + err.message);
+  }
 })
 
 router.get('/show/:id', async (req, res) => {
@@ -58,20 +91,34 @@ router.post('/createpost', isLoggedIn, upload.single('postimage'), async (req, r
     if (!user) {
       throw new Error('User not found');
     }
-    let imageFileNameOrUrl;
-    if (req.file) {
-      // multer-storage-cloudinary exposes the uploaded file url in several properties
-      imageFileNameOrUrl = req.file.path || req.file.secure_url || req.file.url || req.file.location;
-    } else {
+
+    if (!req.file) {
       throw new Error('No file uploaded');
     }
+
+    // Upload file buffer to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'pixora',
+          resource_type: 'auto',
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      uploadStream.end(req.file.buffer);
+    });
+
+    const imageUrl = uploadResult.secure_url;
 
     const post = await postModle.create({
       user: user._id,
       title: req.body.title,
       description: req.body.description,
       id: Date.now() + '-' + Math.random() * 0.5,
-      image: imageFileNameOrUrl,
+      image: imageUrl,
     });
 
     user.posts.push(post._id);
@@ -80,7 +127,7 @@ router.post('/createpost', isLoggedIn, upload.single('postimage'), async (req, r
     res.redirect('/profile');
   } catch (err) {
     console.error(err);
-    res.status(500).send('Error creating post');
+    res.status(500).send('Error creating post: ' + err.message);
   }
 });
 

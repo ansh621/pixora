@@ -1,23 +1,19 @@
 const multer = require('multer');
-const CloudinaryStorageModule = require('multer-storage-cloudinary');
-const CloudinaryStorage = CloudinaryStorageModule.default || CloudinaryStorageModule;
-const cloudinary = require('cloudinary').v2;
-require('dotenv').config();
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+// Use memory storage instead of disk
+const storage = multer.memoryStorage();
+
+const upload = multer({ 
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  fileFilter: (req, file, cb) => {
+    const allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (allowedMimes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only JPEG, PNG, GIF, and WebP images are allowed'), false);
+    }
+  }
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: 'pixora',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'gif'],
-    transformation: [{ width: 1600, crop: 'limit' }],
-  },
-});
-
-const upload = multer({ storage });
 module.exports = upload;
