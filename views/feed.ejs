@@ -9,7 +9,11 @@
         <% pp.forEach(function(elem) { %>
         <div class="box">
             <a href="/show/<%= elem._id %>">
-                <img src="/images/uploads/<%= elem.image %>" class="card-img-top w-full h-64 object-cover" alt="...">
+                <% let imgSrc = '/images/uploads/' + elem.image; %>
+                <% if (!elem.image) { imgSrc = '/images/placeholder.svg'; } %>
+                <% if (typeof elem.image === 'string' && (elem.image.startsWith('http://') || elem.image.startsWith('https://'))) { imgSrc = elem.image; } %>
+                <% if (elem.image === 'placeholder.svg') { imgSrc = '/images/placeholder.svg'; } %>
+                <img src="<%= imgSrc %>" class="card-img-top w-full h-64 object-cover" alt="...">
             </a>
         </div>
         <% }); %>

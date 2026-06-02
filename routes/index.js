@@ -7,6 +7,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 passport.use(new LocalStrategy(userModle.authenticate()));
 const flash = require("flash")
+const fs = require('fs');
+const path = require('path');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -56,10 +58,10 @@ router.post('/createpost', isLoggedIn, upload.single('postimage'), async (req, r
     if (!user) {
       throw new Error('User not found');
     }
-
-    let imageFileName;
+    let imageFileNameOrUrl;
     if (req.file) {
-      imageFileName = req.file.filename;
+      // multer-storage-cloudinary exposes the uploaded file url in several properties
+      imageFileNameOrUrl = req.file.path || req.file.secure_url || req.file.url || req.file.location;
     } else {
       throw new Error('No file uploaded');
     }
@@ -68,8 +70,8 @@ router.post('/createpost', isLoggedIn, upload.single('postimage'), async (req, r
       user: user._id,
       title: req.body.title,
       description: req.body.description,
-      id:  Date.now() + '-' +Math.random()*.5,
-      image: imageFileName // Use the filename only if it exists
+      id: Date.now() + '-' + Math.random() * 0.5,
+      image: imageFileNameOrUrl,
     });
 
     user.posts.push(post._id);
@@ -99,6 +101,24 @@ router.get('/feed', isLoggedIn, async (req, res) => {
     
     // Fetch all posts and populate the 'user' field
     let pp = await postModle.find().populate('user');
+
+    // Ensure each post has a valid image file; replace missing files with placeholder
+    const uploadsDir = path.join(__dirname, '..', 'public', 'images', 'uploads');
+    pp = pp.map(post => {
+      try {
+        if (!post.image) {
+          post.image = 'placeholder.svg';
+          return post;
+        }
+        const imgPath = path.join(uploadsDir, post.image);
+        if (!fs.existsSync(imgPath)) {
+          post.image = 'placeholder.svg';
+        }
+      } catch (e) {
+        post.image = 'placeholder.svg';
+      }
+      return post;
+    });
 
     // Filter posts by title if search query exists
     if (searchQuery.trim() !== '') {
