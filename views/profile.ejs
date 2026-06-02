@@ -10,7 +10,17 @@
                     <i class="text-zinc-800 ri-pencil-line"></i>
                 </span>
                 <div class="w-32 h-32 rounded-full bg-zinc-400 overflow-hidden">
-                    <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profileImage %>">
+                    <% 
+                      let userProfileImg = 'default-profile-image.jpg';
+                      if (user.profileImage) {
+                        if (user.profileImage.startsWith('http://') || user.profileImage.startsWith('https://')) {
+                          userProfileImg = user.profileImage;
+                        } else {
+                          userProfileImg = '/images/uploads/' + user.profileImage;
+                        }
+                      }
+                    %>
+                    <img class="w-full h-full object-cover" src="<%= userProfileImg %>">
                 </div>
             </div>
 
@@ -31,8 +41,18 @@
             <% user.posts.forEach(function(post) { %>
                 <div class="card bg-white hover:bg-zinc-50 rounded-lg shadow overflow-hidden">
                     <a href="/show/<%= post._id %>">
-                        <img src="/images/uploads/<%= post.image %>" class="card-img-top w-full h-64 object-cover"
-                            alt="...">
+                        <% 
+                          let postImg = '/images/placeholder.svg';
+                          if (post.image) {
+                            if (post.image.startsWith('http://') || post.image.startsWith('https://')) {
+                              postImg = post.image;
+                            } else if (post.image !== 'placeholder.svg') {
+                              postImg = '/images/uploads/' + post.image;
+                            }
+                          }
+                        %>
+                        <img src="<%= postImg %>" class="card-img-top w-full h-64 object-cover"
+                            alt="...\">
                         <!-- Adjust height of the image (h-64) based on your preference -->
                         <div class="relative card-body p-4">
                             <div class="flex justify-between"> <p class="card-text text-lg text-black font-semibold mb-2">

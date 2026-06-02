@@ -9,10 +9,16 @@
         <% pp.forEach(function(elem) { %>
         <div class="box">
             <a href="/show/<%= elem._id %>">
-                <% let imgSrc = '/images/uploads/' + elem.image; %>
-                <% if (!elem.image) { imgSrc = '/images/placeholder.svg'; } %>
-                <% if (typeof elem.image === 'string' && (elem.image.startsWith('http://') || elem.image.startsWith('https://'))) { imgSrc = elem.image; } %>
-                <% if (elem.image === 'placeholder.svg') { imgSrc = '/images/placeholder.svg'; } %>
+                <% 
+                  let imgSrc = '/images/placeholder.svg';
+                  if (elem.image) {
+                    if (elem.image.startsWith('http://') || elem.image.startsWith('https://')) {
+                      imgSrc = elem.image;
+                    } else if (elem.image !== 'placeholder.svg') {
+                      imgSrc = '/images/uploads/' + elem.image;
+                    }
+                  }
+                %>
                 <img src="<%= imgSrc %>" class="card-img-top w-full h-64 object-cover" alt="...">
             </a>
         </div>

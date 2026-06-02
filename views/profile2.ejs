@@ -6,7 +6,17 @@
         <div class="relative mr-10">
             
             <div class="w-32 h-32 rounded-full bg-zinc-400 overflow-hidden">
-                <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profileImage %>">
+                <% 
+                  let userProfileImg = 'default-profile-image.jpg';
+                  if (user.profileImage) {
+                    if (user.profileImage.startsWith('http://') || user.profileImage.startsWith('https://')) {
+                      userProfileImg = user.profileImage;
+                    } else {
+                      userProfileImg = '/images/uploads/' + user.profileImage;
+                    }
+                  }
+                %>
+                <img class="w-full h-full object-cover" src="<%= userProfileImg %>">
             </div>
         </div>
 
