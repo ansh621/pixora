@@ -94,14 +94,24 @@ router.get('/feed', isLoggedIn, async (req, res) => {
     // Fetch the current user
     const user = await userModle.findOne({ username: req.session.passport.user });
     
+    // Get search query from request
+    const searchQuery = req.query.search || '';
+    
     // Fetch all posts and populate the 'user' field
-    const pp = await postModle.find().populate('user');
+    let pp = await postModle.find().populate('user');
 
-    // Shuffle the 'pp' array containing all posts
-    shuffleArray(pp);
+    // Filter posts by title if search query exists
+    if (searchQuery.trim() !== '') {
+      pp = pp.filter(post => 
+        post.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    } else {
+      // Shuffle the 'pp' array containing all posts only if no search
+      shuffleArray(pp);
+    }
 
-    // Render the "feed" page with the shuffled posts and user data
-    res.render("feed", { user, pp, nav: true });
+    // Render the "feed" page with the filtered/shuffled posts and user data
+    res.render("feed", { user, pp, nav: true, searchQuery });
   } catch (err) {
     // Handle errors
     console.error("Error fetching user or posts:", err);

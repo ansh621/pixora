@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://ansh1044:ansh0621@learning.n1pvy.mongodb.net')
+require('dotenv').config();
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
 const plm = require('passport-local-mongoose');
 const userSchema = mongoose.Schema({

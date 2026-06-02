@@ -1,12 +1,12 @@
 body {
-  
+  margin: 0;
+  padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  
+  overflow-x: hidden;
 }
 
 a {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -21,17 +21,12 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-p{
+p,
+hgroup,
+div {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-hgroup{
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-div{
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
 .error {
   font-weight: 500;
   color: red;
@@ -39,31 +34,37 @@ div{
   margin: 7px 0px;
 }
 
-.container {
+/* MASONRY GALLERY */
+.gallery-container {
   padding-top: 13vh;
-  width: 90%; /* Adjust width as needed */
-  margin: auto;
+  width: 100%;
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+
   column-count: 6;
   column-gap: 20px;
-  background-color:rgb(240 253 250);;
+
+  background-color: rgb(240 253 250);
 }
 
-.container .box {
+.gallery-container .box {
   width: 100%;
-  margin-bottom: 20px; /* Increased margin for better spacing */
-  break-inside: avoid; /* Prevent boxes from breaking inside columns */
+  margin-bottom: 20px;
+  break-inside: avoid;
   border-radius: 15px;
 }
 
-.container .box img {
+.gallery-container .box img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensure images fill their container while maintaining aspect ratio */
+  object-fit: cover;
   border-radius: 10px;
 }
 
 img:hover {
-  opacity: .95;
+  opacity: 0.95;
   box-shadow: 0 0 10px #494949;
 }
 
@@ -73,28 +74,27 @@ img:hover {
   padding: 2px;
 }
 
-@media (max-width: 1427px) {
-  .container {
+@media (max-width: 2160px) {
+  .gallery-container {
     column-count: 5;
-    width: calc(100% - 40px);
   }
 }
 
 @media (max-width: 1200px) {
-  .container {
+  .gallery-container {
     column-count: 4;
   }
 }
 
 @media (max-width: 1000px) {
-  .container {
+  .gallery-container {
     column-count: 3;
   }
-  
+
   body {
     overflow-x: hidden;
   }
-  
+
   .navLink {
     position: absolute;
     right: 0px;
@@ -109,98 +109,98 @@ img:hover {
     transition: transform 0.4s ease-in;
     opacity: 0.9;
   }
-  
+
   .navLink li {
     opacity: 1;
   }
-  
+
   .lines {
     display: block;
   }
-  
+
   .nav-active {
     transform: translateX(0%);
   }
-  
+
   @keyframes navLinkFade {
     from {
       opacity: 0;
       transform: translateX(50px);
     }
-    
+
     to {
       opacity: 1;
       transform: translateX(0px);
     }
   }
-  
+
   .toggle .l1 {
-    transform: rotate(-45deg) translate(-5px,6px);
+    transform: rotate(-45deg) translate(-5px, 6px);
   }
-  
+
   .toggle .l2 {
     opacity: 0;
   }
-  
+
   .toggle .l3 {
-    transform: rotate(45deg) translate(-5px,-6px);
+    transform: rotate(45deg) translate(-5px, -6px);
   }
 }
 
 @media (max-width: 786px) {
-  .container {
+  .gallery-container {
     column-count: 2;
   }
 }
 
 @media (max-width: 480px) {
-  .container {
+  .gallery-container {
     column-count: 1;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
-/*footer*/
+
+/* Page transition */
 .page {
   transition: opacity 0.3s ease-in-out;
 }
+
 .page-transition {
   opacity: 0;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-  background: #fbcfe8; /* Rose-500 color */
+  background: #fbcfe8;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #ed64a6;
-  border-radius: 6px; /* Rose-500 color */
+  border-radius: 6px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #d53f8c; /* Rose-700 color */
+  background: #d53f8c;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 html {
   scrollbar-width: thin;
-  scrollbar-color: #ed64a6 #fbcfe8; /* Rose-500 color for thumb, Rose-200 color for track */
+  scrollbar-color: #ed64a6 #fbcfe8;
 }
 
+/* Custom Cursor */
 .cursor {
   position: absolute;
-  width: 20px; /* Adjust the size of the cursor */
-  height: 20px; /* Adjust the size of the cursor */
-  background-color: #ff3399; /* Adjust the color of the cursor */
-  border-radius: 50%; /* Make it circular */
-  pointer-events: none; /* Ensure it doesn't interfere with mouse events */
-  transform: translate(-50%, -50%); /* Center the cursor */
-  z-index: 9999; /* Ensure it's on top of other elements */
+  width: 20px;
+  height: 20px;
+  background-color: #ff3399;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
 }
-
