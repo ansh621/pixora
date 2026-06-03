@@ -26,7 +26,7 @@ The project was built to gain hands-on experience in:
 * Full Stack Development
 * Backend Architecture
 
-The platform enables users to share images with titles and descriptions while maintaining ownership and control over their content.
+The platform enables users to share images with titles and descriptions while maintaining ownership and control over their content
 
 ---
 
